@@ -9,9 +9,9 @@ namespace Lollipop\Wrappers\Bindings {
             // we can trigger a download anytime by calling $app->output('download', [args]);       
             $app->onOutput('download', function($file, $content_type = null, $filepath = null, $callback = null) use ($app) {
                 // check whether the file exists if filepath is set
-                if(!is_null($filepath) && is_file($filepath . MDS . $file)) {
+                if(!is_null($filepath) && is_file($filepath . LDS . $file)) {
                     $read = true;
-                    $filesize = filesize($filepath . MDS . $file);
+                    $filesize = filesize($filepath . LDS . $file);
                 } else {
                     // we need the projected filesize
                     $read = false;
@@ -33,7 +33,7 @@ namespace Lollipop\Wrappers\Bindings {
                 header("Content-Transfer-Encoding: binary\n");
                 
                 if($read) {
-                    readfile($filepath . MDS . $file);
+                    readfile($filepath . LDS . $file);
                 } else {
                     // immediate outputs the response object
                     $app->trigger('render');
